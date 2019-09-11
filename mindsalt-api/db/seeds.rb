@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Category seeds - These are the only three categories that should be in the db.
-let_go = Category.create(type: "Let Go")
-gratitude = Category.create(type: "Gratitude")
-goal = Category.create(type: "Goal")
+let_go = Category.create(name: "Let Go")
+gratitude = Category.create(name: "Gratitude")
+goal = Category.create(name: "Goal")
 
 # User seeds
 robin = User.create(username: "Robin Myers")
