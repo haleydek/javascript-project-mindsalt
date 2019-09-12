@@ -7,15 +7,34 @@ header {
     display: flex;
     justify-content: center;
     padding: 1rem;
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 40px;
 }
 
 .salt-create {
+    display: none;
+}
 
+.grid {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    margin-right: 8rem;
+    padding-left: 0;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-family: 'Quicksand', sans-serif;
 }
 
 #salt-container {
+    grid-column: 2;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, 33.33%);
+}
+
+#tag-container {
+    grid-column: 1;
+    grid-row: 1;
     padding: 1rem;
 }
 
@@ -25,6 +44,7 @@ header {
 
 .salt-item {
     margin: 1rem;
+    padding: 2rem;
 }
 
 .post-content {
@@ -32,7 +52,7 @@ header {
 }
 
 .post-user {
-    justify-content: right;
+
 }
 
 .uplift-btn {
