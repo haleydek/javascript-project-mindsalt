@@ -1,4 +1,4 @@
-let posts = document.getElementById("salt-index");
+let posts = document.getElementById("salt-container");
 
 function addPostsToDOM(postsCollection) {
     const postsObjects = postsCollection["data"]
@@ -8,10 +8,9 @@ function addPostsToDOM(postsCollection) {
 
     for (postObj of postsObjects) {
         posts.innerHTML += `
-            <div class="post-container">
+            <div class="salt-item">
                 <p class="post-content">${postObj.attributes.content}</p>
-                <p>${postObj.attributes.uplifts} Uplifts</p>
-                <button data-post-id=${postObj.id} class="uplift-btn">Uplift</button>
+                <p><button data-post-id=${postObj.id} class="uplift-btn">&#x21E7;</button> ${postObj.attributes.uplifts} Uplifts</p>
             </div>
         `
     }
