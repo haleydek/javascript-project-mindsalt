@@ -8,7 +8,8 @@ header {
     justify-content: center;
     padding: 1rem;
     font-family: 'Tenor Sans', sans-serif;
-    font-size: 40px;
+    font-size: 50px;
+    color: #303C6C;
 }
 
 .salt-create {
@@ -21,8 +22,8 @@ header {
     margin-right: 8rem;
     padding-left: 0;
     padding-right: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 0;
+    padding-bottom: 0;
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -32,23 +33,52 @@ header {
     grid-template-columns: repeat(3, 33.33%);
 }
 
-#tag-container {
-    grid-column: 1;
-    grid-row: 1;
-    padding: 1rem;
-}
-
-.active {
-    
-}
-
 .salt-item {
     margin: 1rem;
     padding: 2rem;
 }
 
-.post-content {
+.salt-item h3 {
+    text-align: center;
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 20px;
+}
 
+.salt-item:nth-child(5n) {
+    background-color: #B4DFE5;
+}
+
+.salt-item:nth-child(5n+1) {
+    background-color: #FBE8A6;
+}
+
+.salt-item:nth-child(5n+2) {
+    background-color: #F4976C;
+}
+
+.salt-item:nth-child(5n+3) {
+    background-color: #D2FDFF;
+}
+
+.salt-item:nth-child(5n+4) {
+    background-color: #F4976C;
+}
+
+#salt-container .post-content {
+    font-size: 18px;
+    text-align: justify;
+}
+
+#tag-container {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #303C6C;
+}
+
+.active {
+    
 }
 
 .post-user {
@@ -58,12 +88,13 @@ header {
 .uplift-btn {
     padding: 0;
     border: none;
-    font-size: 20px;
+    font-size: 23px;
     color: lightslategrey;
+    background-color: inherit;
 }
 
 .filled-btn {
-    color: rgb(92, 185, 243);
+    
 }
 
 .tags {
