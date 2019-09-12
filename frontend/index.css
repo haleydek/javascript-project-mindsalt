@@ -31,8 +31,21 @@ header {
 
 }
 
+.post-user {
+    justify-content: right;
+}
+
 .uplift-btn {
     padding: 0;
     border: none;
-    font-size: 18px;
+    font-size: 20px;
+    color: lightslategrey;
+}
+
+.filled-btn {
+    color: rgb(92, 185, 243);
+}
+
+.tags {
+
 }
