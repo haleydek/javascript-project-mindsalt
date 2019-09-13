@@ -33,7 +33,7 @@ function addPostsToDOM(postsCollection) {
                 <p class="post-content">${postObj.attributes.content}</p>
                 <p>- ${user}</p>
                ${renderTags(tags)}
-                <p><button data-post-id=${postObj.id} class="uplift-btn">&#x2B06;</button> ${postObj.attributes.uplifts} Uplifts</p>
+                <button data-post-id=${postObj.id} class="uplift-btn">&#x2B06;</button><span>${postObj.attributes.uplifts} Uplifts</span>
             </div>
         `
     }
@@ -65,10 +65,30 @@ fetch("http://localhost:3000/posts")
     })
 
 postsContainer.addEventListener('click', (e) => {
-    console.log(e.target.className)
     if (e.target.className === "tags"){
         let tagToFilterBy = e.target.dataset.tagId
         filterPosts(tagToFilterBy)
+    } else if (e.target.className === "uplift-btn"){
+        let span = event.target.nextSibling
+        let postId = event.target.dataset.postId
+        let upliftCount = parseInt(span.innerText.split(" ")[0], 10)
+
+        fetch(`http://localhost:3000/post/${postId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                "uplifts": upliftCount + 1
+            })
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(postObj => {
+                span.innerText = `${postObj.uplifts} Uplifts`
+            })
     }
 
 })
