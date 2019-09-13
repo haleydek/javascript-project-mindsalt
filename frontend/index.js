@@ -68,14 +68,16 @@ postsContainer.addEventListener('click', (e) => {
     if (e.target.className === "tags"){
         let tagToFilterBy = e.target.dataset.tagId
         filterPosts(tagToFilterBy)
-        
+
     } else if (e.target.className === "uplift-btn"){
-        let span = event.target.nextSibling
-        let postId = event.target.dataset.postId
+        e.preventDefault();
+
+        let span = e.target.nextSibling
+        let postId = e.target.dataset.postId
         let upliftCount = parseInt(span.innerText.split(" ")[0], 10)
 
-        fetch(`http://localhost:3000/post/${postId}`, {
-            method: "POST",
+        fetch(`http://localhost:3000/posts/${postId}`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
@@ -88,6 +90,7 @@ postsContainer.addEventListener('click', (e) => {
                 return response.json();
             })
             .then(postObj => {
+                console.log(postObj.message)
                 span.innerText = `${postObj.uplifts} Uplifts`
             })
     }

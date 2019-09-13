@@ -13,8 +13,7 @@ class PostsController < ApplicationController
         post = Post.find_by(id: params[:id])
 
         if post
-            post.uplifts = post_params[:uplifts]
-            if post.update!
+            if post.update!(uplifts: post_params[:uplifts])
                 render json: post.to_json(:only => [:uplifts])
             else
                 render json: { :message => "Post did not update" }
