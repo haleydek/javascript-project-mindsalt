@@ -4,26 +4,18 @@ body {
 }
 
 header {
-    display: flex;
     justify-content: center;
     padding: 1rem;
     font-family: 'Tenor Sans', sans-serif;
-    font-size: 50px;
-    color: #303C6C;
-}
-
-.salt-create {
-    display: none;
+    font-size: 46px;
+    color: white;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 15% 85%;
-    margin-right: 8rem;
-    padding-left: 0;
-    padding-right: 1rem;
-    padding-top: 0;
-    padding-bottom: 0;
+    grid-template-columns: 20% 80%;
+    margin-top: 1rem;
+    margin-right: 5rem;
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -31,10 +23,15 @@ header {
     grid-column: 2;
     display: grid;
     grid-template-columns: repeat(3, 33.33%);
+    margin-left: 1rem;
+}
+
+#salt-form-container {
+    display: none;
 }
 
 .salt-item {
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 2rem;
 }
 
@@ -72,19 +69,52 @@ header {
 .salt-item li {
     list-style-type: none;
     margin: 0;
-    padding: 0;
 }
 
-#tag-container {
-    grid-column: 1;
-    grid-row: 1;
-    margin-top: 1rem;
+#side-nav {
+    display: block;
     padding: 1rem;
+    margin: 0;
+    background-color: #303C6C;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+}
+
+#side-nav ul {
+    padding: 1rem;
+}
+
+#side-nav li {
+    list-style-type: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     background-color: #303C6C;
 }
 
+.nav-link {
+    display: block;
+    text-decoration: none;
+    text-align: right;
+    font-size: 28px;
+    color: white;
+}
+
+.nav-link:hover {
+    letter-spacing: 1.5px;
+    color: #6B7A8F;
+}
+
+.nav-link:active {
+    letter-spacing: 1.5px;
+    color: #6B7A8F;
+}
+
 .active {
-    
+    /* display: grid; */
 }
 
 .uplift-btn {

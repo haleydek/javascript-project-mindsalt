@@ -41,7 +41,7 @@ function addPostsToDOM(postsCollection) {
 
 function renderTags(tags){
     return tags.map(tagObj => {
-        return `<li class="tags" data-tag-id=${tagObj.id}>${tagObj.attributes.tag_name}</li>`
+        return `<li class="tags" data-tag-id=${tagObj.id}>#${tagObj.attributes.tag_name}</li>`
     }).join("")
 }
 
