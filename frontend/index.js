@@ -9,6 +9,16 @@ let postsCategories = []
 let postsHashtags = []
 let postsUsers = []
 
+function sortPostsNewToOld(postsCollection) {
+    return postsCollection.sort((a, b) => {
+        let aId = parseInt(a.id, 10);
+        let bId = parseInt (b.id, 10);
+        if (aId > bId) { return -1 }
+        if (bId > aId) { return 1 }
+        return 0;
+    })
+}
+
 function addPostsToDOM(postsCollection) {
     // Clear innerHTML every time function is called. Otherwise, duplication will occur.
     postsContainer.innerHTML = ``
@@ -56,8 +66,9 @@ fetch("http://localhost:3000/posts")
         return response.json();
     })
     .then(res => {
-        allPosts = res["data"]
+        allPosts = sortPostsNewToOld(res["data"])
         postsRelatives = res["included"]
+        console.log(postsRelatives)
         postsCategories = postsRelatives.filter(obj => obj.type === "category")
         postsHashtags = postsRelatives.filter(obj => obj.type === "hashtag")
         postsUsers = postsRelatives.filter(obj => obj.type === "user")
@@ -90,7 +101,6 @@ postsContainer.addEventListener('click', (e) => {
                 return response.json();
             })
             .then(postObj => {
-                console.log(postObj.message)
                 span.innerText = `${postObj.uplifts} Uplifts`
             })
     }
