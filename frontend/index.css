@@ -69,6 +69,12 @@ header {
     text-align: justify;
 }
 
+.salt-item li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 #tag-container {
     grid-column: 1;
     grid-row: 1;

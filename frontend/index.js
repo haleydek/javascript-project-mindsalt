@@ -32,7 +32,7 @@ function addPostsToDOM(postsCollection) {
                 <h3>${category}</h3>
                 <p class="post-content">${postObj.attributes.content}</p>
                 <p>- ${user}</p>
-               ${renderTags(tags)}
+               ${renderTags(tags)}</br>
                 <button data-post-id=${postObj.id} class="uplift-btn">&#x2B06;</button><span>${postObj.attributes.uplifts} Uplifts</span>
             </div>
         `
