@@ -81,16 +81,13 @@ header {
     
 }
 
-.post-user {
-
-}
-
 .uplift-btn {
     padding: 0;
     border: none;
     font-size: 23px;
-    color: lightslategrey;
+    color: #E6E9EC;
     background-color: inherit;
+    text-shadow: -2px 2px #6B7A8F;
 }
 
 .filled-btn {

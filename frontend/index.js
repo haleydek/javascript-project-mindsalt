@@ -9,24 +9,6 @@ let postsCategories = []
 let postsHashtags = []
 let postsUsers = []
 
-postsContainer.addEventListener('click', (e) => {
-    if (e.target.className = "tag"){
-        let tagToFilterBy = e.target.innerText
-        //innerText will be like the name of the tag that you want to filter 
-        filterPosts(tagToFilterBy)
-    }
-
-})
-
-function filterPosts(filter) {
-    let filteredPosts = allPosts.filter(post => {
-        return post.hashtags.find(hashtag => {
-            return hashtag.tag_name.includes("filter")
-        })
-    })
-    addPostsToDOM(filteredPosts)
-}
-
 function addPostsToDOM(postsCollection) {
     // Clear innerHTML every time function is called. Otherwise, duplication will occur.
     postsContainer.innerHTML = ``
@@ -42,7 +24,6 @@ function addPostsToDOM(postsCollection) {
         let categoryId = relatedObjRefs.category.data.id
 
         let tags = postsHashtags.filter(obj => hashtagIds.includes(obj.id))
-        let tagNames = tags.map(obj => obj.attributes.tag_name)
         let user = postsUsers.find(obj => obj.id === userId).attributes.username
         let category = postsCategories.find(obj => obj.id === categoryId).attributes.name
 
@@ -50,19 +31,25 @@ function addPostsToDOM(postsCollection) {
             <div class="salt-item">
                 <h3>${category}</h3>
                 <p class="post-content">${postObj.attributes.content}</p>
-                <p class="post-user">- ${user}</p>
-               ${renderTags(tagNames)}
+                <p>- ${user}</p>
+               ${renderTags(tags)}
                 <p><button data-post-id=${postObj.id} class="uplift-btn">&#x2B06;</button> ${postObj.attributes.uplifts} Uplifts</p>
             </div>
         `
     }
 }
 
-function renderTags(tagNamesArray){
-    return tagNamesArray.map(tagName => {
-        return `<li class="tags">${tagName}</li>`
+function renderTags(tags){
+    return tags.map(tagObj => {
+        return `<li class="tags" data-tag-id=${tagObj.id}>${tagObj.attributes.tag_name}</li>`
     }).join("")
 }
+
+// function renderTags(tagNamesArray){
+//     return tagNamesArray.map(tagName => {
+//         return `<li class="tags">${tagName}</li>`
+//     }).join("")
+// }
 
 fetch("http://localhost:3000/posts")
     .then(response => {
@@ -76,3 +63,25 @@ fetch("http://localhost:3000/posts")
         postsUsers = postsRelatives.filter(obj => obj.type === "user")
         addPostsToDOM(allPosts)
     })
+
+postsContainer.addEventListener('click', (e) => {
+    console.log(e.target.className)
+    if (e.target.className === "tags"){
+        let tagToFilterBy = e.target.dataset.tagId
+        filterPosts(tagToFilterBy)
+    }
+
+})
+
+function filterPosts(filter) {
+    let filteredPosts = allPosts.filter(postObj => {
+        // REFACTOR finding a post's hashtags. Used in addPostsToDOM above.
+        let relatedObjRefs = postObj.relationships
+        let tagIds = relatedObjRefs.hashtags.data.map(obj => obj.id)
+
+        return tagIds.find(id => {
+            return id.includes(filter)
+        })
+    })
+    addPostsToDOM(filteredPosts)
+}
