@@ -68,6 +68,7 @@ postsContainer.addEventListener('click', (e) => {
     if (e.target.className === "tags"){
         let tagToFilterBy = e.target.dataset.tagId
         filterPosts(tagToFilterBy)
+        
     } else if (e.target.className === "uplift-btn"){
         let span = event.target.nextSibling
         let postId = event.target.dataset.postId
