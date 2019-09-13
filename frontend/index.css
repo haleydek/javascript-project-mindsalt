@@ -92,7 +92,6 @@ header {
     list-style-type: none;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    background-color: #303C6C;
 }
 
 .nav-link {
@@ -126,10 +125,6 @@ header {
     text-shadow: -2px 2px #6B7A8F;
 }
 
-.filled-btn {
-    
-}
-
-.tags {
-
+.tags:hover {
+    letter-spacing: 1.5px;
 }
