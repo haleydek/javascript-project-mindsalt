@@ -1,4 +1,5 @@
 let postsContainer = document.getElementById("salt-container");
+let navLinks = document.getElementById("nav-links");
 let allPosts = []
     // allPosts is an array of post objects with id references
     // to their related objects (i.e. user, category, hashtags)
@@ -68,7 +69,6 @@ fetch("http://localhost:3000/posts")
     .then(res => {
         allPosts = sortPostsNewToOld(res["data"])
         postsRelatives = res["included"]
-        console.log(postsRelatives)
         postsCategories = postsRelatives.filter(obj => obj.type === "category")
         postsHashtags = postsRelatives.filter(obj => obj.type === "hashtag")
         postsUsers = postsRelatives.filter(obj => obj.type === "user")
@@ -119,3 +119,15 @@ function filterPosts(filter) {
     })
     addPostsToDOM(filteredPosts)
 }
+
+// navLinks.addEventListener("click", (e) => {
+//     if (e.target.className === "nav-link") {
+//         let oldDiv = document.querySelector("div.active");
+//         let newDivId = e.target.dataset.container;
+//         let newDiv = document.getElementById(`${newDivId}`);
+
+//         oldDiv.classList.remove("active");
+
+//         newDiv.classList.add("active");
+//     }
+// })
