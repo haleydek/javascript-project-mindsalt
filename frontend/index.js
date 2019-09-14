@@ -120,14 +120,9 @@ function filterPosts(filter) {
     addPostsToDOM(filteredPosts)
 }
 
-// navLinks.addEventListener("click", (e) => {
-//     if (e.target.className === "nav-link") {
-//         let oldDiv = document.querySelector("div.active");
-//         let newDivId = e.target.dataset.container;
-//         let newDiv = document.getElementById(`${newDivId}`);
-
-//         oldDiv.classList.remove("active");
-
-//         newDiv.classList.add("active");
-//     }
-// })
+navLinks.addEventListener("click", (e) => {
+    if (e.target.className === "nav-link") {
+        let newDivId = e.target.dataset.container;
+        let newDiv = document.getElementById(`${newDivId}`);
+    }
+})

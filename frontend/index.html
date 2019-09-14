@@ -11,18 +11,21 @@
 <body>
 
 <div class="grid">
-    <div id="salt-container" class="active">
+    <div id="side-nav">
+            <header>MiNDSALT</header>
+            <ul id="nav-links">
+                <a href="#salt-container" class="nav-link">home</a>
+                <a href="#salt-form-container" class="nav-link">new mindsalt</a>
+                <li class="nav-link" data-container="salt-container">home</li>
+                <li class="nav-link" data-container="salt-form-container">new mindsalt</li>
+            </ul>
     </div>
 
-    <div id="salt-form-container">
+    <div id="salt-form-container" class="content">
+        <h1>new mindsalt yeahhhh!</h1>
     </div>
-        
-    <div id="side-nav">
-        <header>MiNDSALT</header>
-        <ul id="nav-links">
-            <li class="nav-link" data-container="salt-container">home</li>
-            <li class="nav-link" data-container="salt-form-container">new mindsalt</li>
-        </ul>
+
+    <div id="salt-container" class="content default">
     </div>
 </div>
 
