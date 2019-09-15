@@ -9,7 +9,6 @@ let postsRelatives = []
     // that are related to the posts stored in allPosts
 let postsCategories = []
 let postsHashtags = []
-let postsUsers = []
 
 function sortPostsNewToOld(postsCollection) {
     return postsCollection.sort((a, b) => {
@@ -32,18 +31,15 @@ function addPostsToDOM(postsCollection) {
         let relatedObjRefs = postObj.relationships
 
         let hashtagIds = relatedObjRefs.hashtags.data.map(obj => obj.id)
-        let userId = relatedObjRefs.user.data.id
         let categoryId = relatedObjRefs.category.data.id
 
         let tags = postsHashtags.filter(obj => hashtagIds.includes(obj.id))
-        let user = postsUsers.find(obj => obj.id === userId).attributes.username
         let category = postsCategories.find(obj => obj.id === categoryId).attributes.name
 
         postsContainer.innerHTML += `
             <div class="salt-item">
                 <h3>${category}</h3>
                 <p class="post-content">${postObj.attributes.content}</p>
-                <p>- ${user}</p>
                ${renderTags(tags)}</br>
                 <button data-post-id=${postObj.id} class="uplift-btn">&#x2B06;</button><span>${postObj.attributes.uplifts} Uplifts</span>
             </div>
@@ -72,7 +68,6 @@ fetch("http://localhost:3000/posts")
         postsRelatives = res["included"]
         postsCategories = postsRelatives.filter(obj => obj.type === "category")
         postsHashtags = postsRelatives.filter(obj => obj.type === "hashtag")
-        postsUsers = postsRelatives.filter(obj => obj.type === "user")
         addPostsToDOM(allPosts)
     })
 

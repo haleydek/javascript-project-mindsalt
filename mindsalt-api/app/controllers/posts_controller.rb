@@ -3,10 +3,14 @@ class PostsController < ApplicationController
         posts = Post.all
 
         options = {
-            include: [:user, :category, :hashtags]
+            include: [:category, :hashtags]
         }
 
         render json: PostSerializer.new(posts, options)
+    end
+
+    def create
+
     end
 
     def update
@@ -26,6 +30,6 @@ class PostsController < ApplicationController
     private
 
     def post_params
-        params.permit(:uplifts, :content, :user_id, :category_id)
+        params.permit(:uplifts, :content, :category_id, hashtags_attributes: [:tag_name])
     end
 end
