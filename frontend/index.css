@@ -25,6 +25,22 @@ header {
     display: none;
     grid-column: 2;
     height: 100%;
+    padding-top: 1rem;
+    margin-right: 5rem;
+}
+
+.default {
+    grid-template-columns: repeat(3, 33.33%)
+}
+
+.active {
+    display: grid;
+}
+
+/* .content {
+    display: none;
+    grid-column: 2;
+    height: 100%;
 }
 
 .default {
@@ -40,7 +56,7 @@ header {
 
 :target ~ .default {
     display: none;
-}
+} */
 
 .salt-item {
     margin: 0.5rem;

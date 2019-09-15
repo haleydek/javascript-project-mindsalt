@@ -1,4 +1,5 @@
-let postsContainer = document.getElementById("salt-container");
+// let postsContainer = document.getElementById("salt-container");
+let postsContainer = document.getElementById("home");
 let navLinks = document.getElementById("nav-links");
 let allPosts = []
     // allPosts is an array of post objects with id references
@@ -122,7 +123,19 @@ function filterPosts(filter) {
 
 navLinks.addEventListener("click", (e) => {
     if (e.target.className === "nav-link") {
-        let newDivId = e.target.dataset.container;
-        let newDiv = document.getElementById(`${newDivId}`);
+        removeActiveClass();
+
+        addActiveClass(event);
     }
 })
+
+function removeActiveClass(){
+    let currentDiv = document.querySelector("div.active");
+    currentDiv.classList.remove("active");
+}
+
+function addActiveClass(event){
+    let targetId = event.target.getAttribute("href").substr(1);
+    let targetDiv = document.getElementById(`${targetId}`);
+    targetDiv.classList.add("active");
+}
