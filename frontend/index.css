@@ -58,6 +58,47 @@ header {
     display: none;
 } */
 
+h1 {
+    font-family: 'Tenor Sans', sans-serif;
+    margin-left: 1rem;
+}
+
+.new-form {
+    width: 60%;
+    margin: 1rem;
+}
+
+.new-form fieldset {
+    margin-bottom: 2rem;
+}
+
+.new-form legend {
+    font-size: 20px;
+}
+
+.new-form legend span {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 26px;
+}
+
+.new-form textarea {
+    width: 95%;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+}
+
+.new-hashtag {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    width: 27%;
+    margin-right: 2%;
+}
+
+.submit-btn {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+}
+
 .salt-item {
     margin: 0.5rem;
     padding: 2rem;
