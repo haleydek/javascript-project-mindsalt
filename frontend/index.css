@@ -109,18 +109,14 @@ header {
     overflow-x: hidden;
 }
 
-#side-nav ul {
+#side-nav nav {
     padding: 1rem;
-}
-
-#side-nav li {
-    list-style-type: none;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
 }
 
 .nav-link {
     display: block;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     text-decoration: none;
     text-align: right;
     font-size: 28px;
