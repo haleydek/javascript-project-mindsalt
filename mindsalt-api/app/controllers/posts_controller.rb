@@ -10,7 +10,17 @@ class PostsController < ApplicationController
     end
 
     def create
+        category = category.find_by(id: postparams[:category_id])
 
+        post = Post.new(content: post_params[:content], uplifts: 0)
+        post.category = category
+        post.hashtags_attributes=(post_params[:hashtags_attributes])
+        
+        if post.save!
+            render json: PostSerializer.new(post, options)
+        else
+            render json: { :message => "Post did not save" }
+        end
     end
 
     def update
