@@ -37,27 +37,6 @@ header {
     display: grid;
 }
 
-/* .content {
-    display: none;
-    grid-column: 2;
-    height: 100%;
-}
-
-.default {
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%)
-}
-
-:target {
-    display: grid;
-    padding-top: 1rem;
-    margin-right: 5rem;
-}
-
-:target ~ .default {
-    display: none;
-} */
-
 h1 {
     font-family: 'Tenor Sans', sans-serif;
     margin-left: 1rem;
