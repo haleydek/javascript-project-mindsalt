@@ -8,29 +8,18 @@ class PostsController < ApplicationController
     end
 
     def create
-        newPosts = []
-        errors = []
-
         options = { include: [:category, :hashtags] }
 
-        new_post_params["post"].each do |post_hash|
-            category = category.find_by(id: post_hash[:category_id])
+        category = Category.find_by(id: post_params["category_id"])
 
-            post = Post.new(content: post_hash[:content], uplifts: 0)
-            post.category = category
-            post.hashtags_attributes=(post_hash[:hashtags_attributes])
-        
-            if post.save!
-                newPosts << post
-            else
-                errors << post.errors.full_messages
-            end
-        end
-
-        if errors.length > 0
-            render json: { :message => errors.join(". ") }
+        post = Post.new(content: post_params["content"], uplifts: 0)
+        post.category = category
+        post.hashtags_attributes=(post_params["hashtags_attributes"])
+    
+        if post.save!
+            render json: PostSerializer.new(post, options)
         else
-            render json: PostSerializer.new(newPosts, options)
+            render json: { :message => "Post did not save" }
         end
     end
 
@@ -51,10 +40,6 @@ class PostsController < ApplicationController
     private
 
     def post_params
-        params.permit(:uplifts, :content, :category_id, hashtags_attributes: [:tag_name])
-    end
-
-    def new_post_params
-        params.permit(post: [:uplifts, :content, :category_id, hashtags_attributes: [:tag_name]])
+        params.require(:post).permit(:uplifts, :content, :category_id, hashtags_attributes: [:tag_name])
     end
 end
