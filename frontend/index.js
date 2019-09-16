@@ -1,5 +1,6 @@
 let postsContainer = document.getElementById("home");
 let navLinks = document.getElementById("nav-links");
+let newForm = document.getElementsByClassName("new-form")[0];
 let submitButton = document.getElementsByClassName("submit")[0];
 let formFieldsets = document.getElementsByTagName("fieldset");
 // let contentInputs = document.getElementsByTagName("textarea");
@@ -143,6 +144,11 @@ function addActiveClass(event){
     targetDiv.classList.add("active");
 }
 
+function returnHome(){
+    const homeDiv = document.querySelector("div.default");
+    homeDiv.classList.add("active");
+}
+
 submitButton.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -156,8 +162,6 @@ submitButton.addEventListener("click", (e) => {
             category_id: fieldset.dataset.categoryId,
             hashtags_attributes
         };
-
-    console.log(JSON.stringify(newPost));
 
     fetch("http://localhost:3000/posts", {
         method: "POST",
@@ -175,6 +179,10 @@ submitButton.addEventListener("click", (e) => {
         });
 
     }
+
+    removeActiveClass();
+    newForm.reset();
+    returnHome();
 
 })
 
