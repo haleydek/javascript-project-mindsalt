@@ -1,17 +1,23 @@
-// let postsContainer = document.getElementById("salt-container");
 let postsContainer = document.getElementById("home");
 let navLinks = document.getElementById("nav-links");
+let submitButton = document.getElementsByClassName("submit")[0];
+let formFieldsets = document.getElementsByTagName("fieldset");
+// let contentInputs = document.getElementsByTagName("textarea");
+// let tagInputs = document.getElementsByClassName("new-hashtag");
 let allPosts = []
     // allPosts is an array of post objects with id references
-    // to their related objects (i.e. user, category, hashtags)
+    // to their related objects (i.e. category, hashtags)
 let postsRelatives = []
-    // postsRelatives is an array of user, category and hashtag objects
+    // postsRelatives is an array of category and hashtag objects
     // that are related to the posts stored in allPosts
 let postsCategories = []
 let postsHashtags = []
+let newPosts = []
+let newPostsRelatives = []
+let newHashtags = []
 
-function sortPostsNewToOld(postsCollection) {
-    return postsCollection.sort((a, b) => {
+function sortPostsNewToOld(postsResponse) {
+    return postsResponse.sort((a, b) => {
         let aId = parseInt(a.id, 10);
         let bId = parseInt (b.id, 10);
         if (aId > bId) { return -1 }
@@ -26,25 +32,51 @@ function addPostsToDOM(postsCollection) {
     
     for (postObj of postsCollection) {
         // Post object only contains ids of its related objects.
-        // To obtain the attributes of a post's user, category, and hashtags,
+        // To obtain the attributes of a post's category, and hashtags,
         // we must match their ids to the corresponding objects in postsRelatedObj.
         let relatedObjRefs = postObj.relationships
-
-        let hashtagIds = relatedObjRefs.hashtags.data.map(obj => obj.id)
-        let categoryId = relatedObjRefs.category.data.id
-
-        let tags = postsHashtags.filter(obj => hashtagIds.includes(obj.id))
-        let category = postsCategories.find(obj => obj.id === categoryId).attributes.name
-
+        
         postsContainer.innerHTML += `
             <div class="salt-item">
-                <h3>${category}</h3>
+                <h3>${getCategory(relatedObjRefs)}</h3>
                 <p class="post-content">${postObj.attributes.content}</p>
-               ${renderTags(tags)}</br>
+               ${getHashtags(relatedObjRefs)}</br>
                 <button data-post-id=${postObj.id} class="uplift-btn">&#x2B06;</button><span>${postObj.attributes.uplifts} Uplifts</span>
             </div>
         `
     }
+}
+
+function addNewPostsToDOM(postsCollection) {
+    for (postObj of postsCollection) {
+        // Post object only contains ids of its related objects.
+        // To obtain the attributes of a post's category and hashtags,
+        // we must match their ids to the corresponding objects in postsRelatedObj.
+        let relatedObjRefs = postObj.relationships;
+
+        postsContainer.insertAdjacentElement("afterbegin", `
+            <div class="salt-item">
+                <h3>${getCategory(relatedObjRefs)}</h3>
+                <p class="post-content">${postObj.attributes.content}</p>
+               ${getHashtags(relatedObjRefs)}</br>
+                <button data-post-id=${postObj.id} class="uplift-btn">&#x2B06;</button><span>${postObj.attributes.uplifts} Uplifts</span>
+            </div>
+        `)
+    }
+}
+
+function getCategory(relatedObjRefs){
+    let categoryId = relatedObjRefs.category.data.id
+    let categoryName = postsCategories.find(obj => obj.id === categoryId).attributes.name
+
+    return categoryName;
+}
+
+function getHashtags(relatedObjRefs){
+    let hashtagIds = relatedObjRefs.hashtags.data.map(obj => obj.id);
+    let hashtags = postsHashtags.filter(obj => hashtagIds.includes(obj.id))
+
+    return renderTags(hashtags);
 }
 
 function renderTags(tags){
@@ -52,12 +84,6 @@ function renderTags(tags){
         return `<li class="tags" data-tag-id=${tagObj.id}>#${tagObj.attributes.tag_name}</li>`
     }).join("")
 }
-
-// function renderTags(tagNamesArray){
-//     return tagNamesArray.map(tagName => {
-//         return `<li class="tags">${tagName}</li>`
-//     }).join("")
-// }
 
 fetch("http://localhost:3000/posts")
     .then(response => {
@@ -133,4 +159,52 @@ function addActiveClass(event){
     let targetId = event.target.getAttribute("href").substr(1);
     let targetDiv = document.getElementById(`${targetId}`);
     targetDiv.classList.add("active");
+}
+
+submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    let newPosts = [];
+
+    for (fieldset of formFieldsets) {
+        let textarea = fieldset.getElementsByTagName("textarea")[0];
+        let hashtags = fieldset.getElementsByClassName("new-hashtag");
+        let hashtags_attributes = collectTags(hashtags);
+
+        newPosts.push({
+            content: textarea.value,
+            category_id: fieldset.dataset.categoryId,
+            hashtags_attributes
+        });
+    }
+
+    let newPostsObj = {newPosts};
+    console.log(JSON.stringify(newPostsObj));
+
+    // fetch("http://localhost:3000/posts", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "Accept": "application/json"
+    //     },
+    //     body: JSON.stringify(newPostsObj)
+    // })
+    //     .then(res => res.json())
+    //     .then(newPostsResponse => {
+    //         newPosts = newPostsResponse["data"]
+    //         newPostsRelatives = newPostsResponse["included"]
+    //         newHashtags = postsRelatives.filter(obj => obj.type === "hashtag")
+    //         addNewPostsToDOM(newPosts)
+    //     });
+
+})
+
+function collectTags(hashtags) {
+    let tagCollection = []
+
+    for (tag of hashtags) {
+        if (tag.value) { tagCollection.push({"tag_name": tag.value}) }
+    }
+
+    return tagCollection
 }
