@@ -94,9 +94,17 @@ h1 {
     margin-right: 2%;
 }
 
-.submit-btn {
-    font-family: 'Quicksand', sans-serif;
+.submit {
+    padding: 1rem;
     font-size: 20px;
+    background-color: #303C6C;
+    color: white;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.submit:hover {
+    letter-spacing: 1.5px;
 }
 
 .salt-item {
@@ -130,7 +138,7 @@ h1 {
     background-color: #F4976C;
 }
 
-#salt-container .post-content {
+.post-content {
     font-size: 18px;
     text-align: justify;
 }
@@ -147,10 +155,12 @@ h1 {
     color: #E6E9EC;
     background-color: inherit;
     text-shadow: -2px 2px #6B7A8F;
+    cursor: pointer;
 }
 
 .tags:hover {
     letter-spacing: 1.5px;
+    cursor: pointer;
 }
 
 #side-nav {
@@ -178,6 +188,7 @@ h1 {
     text-align: right;
     font-size: 28px;
     color: white;
+    cursor: pointer;
 }
 
 .nav-link:hover {
