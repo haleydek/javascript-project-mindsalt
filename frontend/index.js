@@ -147,6 +147,7 @@ function addActiveClass(event){
 function returnHome(){
     const homeDiv = document.querySelector("div.default");
     homeDiv.classList.add("active");
+    window.location.hash = "#home";
 }
 
 submitButton.addEventListener("click", (e) => {
