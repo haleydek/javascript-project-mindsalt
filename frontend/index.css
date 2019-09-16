@@ -37,11 +37,6 @@ header {
     display: grid;
 }
 
-h1 {
-    font-family: 'Tenor Sans', sans-serif;
-    margin-left: 1rem;
-}
-
 .new-form {
     width: 60%;
     margin: 1rem;
@@ -49,6 +44,20 @@ h1 {
 
 .new-form fieldset {
     margin-bottom: 2rem;
+    border-style: solid;
+    border-width: 5px;
+}
+
+.new-form fieldset:nth-child(1) {
+    border-color: #FBE8A6;
+}
+
+.new-form fieldset:nth-child(2) {
+    border-color: #F4976C;
+}
+
+.new-form fieldset:nth-child(3) {
+    border-color: #B4DFE5;
 }
 
 .new-form legend {
@@ -127,14 +136,23 @@ h1 {
     margin: 0;
 }
 
+.uplift-btn ~ span {
+    padding-left: 4px;
+}
+
 .uplift-btn {
     padding: 0;
     border: none;
-    font-size: 23px;
-    color: #E6E9EC;
+    font-size: 26px;
+    color: #EBEDEF;
+    -webkit-text-stroke: 1px #6B7A8F;
     background-color: inherit;
     text-shadow: -2px 2px #6B7A8F;
     cursor: pointer;
+}
+
+.uplift-btn:hover {
+    transform: scale(1.2);
 }
 
 .tags:hover {
@@ -172,7 +190,7 @@ h1 {
 
 .nav-link:hover {
     letter-spacing: 1.5px;
-    color: #6B7A8F;
+    color: #FBE8A6;
 }
 
 .nav-link:active {
