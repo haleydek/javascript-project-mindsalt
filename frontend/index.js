@@ -1,8 +1,9 @@
 let postsContainer = document.getElementById("home");
 let navLinks = document.getElementById("nav-links");
 let newForm = document.getElementsByClassName("new-form")[0];
-let submitButton = document.getElementsByClassName("submit")[0];
 let formFieldsets = document.getElementsByTagName("fieldset");
+let submitButton = document.getElementsByClassName("submit")[0];
+
 // let contentInputs = document.getElementsByTagName("textarea");
 // let tagInputs = document.getElementsByClassName("new-hashtag");
 let allPosts = []

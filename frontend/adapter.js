@@ -30,15 +30,10 @@ class Adapter {
                 }
             })
 
-            console.log("categories: " + this.postsCategories)
-            console.log("hashtags: " + this.postsHashtags)
-
             dataObj["data"].forEach(postObj => {
                 let newPost = new Post(postObj)
                 this.allPosts.push(newPost)
             })
-
-            console.log("posts: " + this.allPosts)
 
             this.addPostsToDOM(this.allPosts)
         })
@@ -115,7 +110,7 @@ class Adapter {
         }
     }
     
-    removeActiveClass(){
+    removeActiveClass = () => {
         let currentDiv = document.querySelector("div.active");
         currentDiv.classList.remove("active");
     }
@@ -126,34 +121,44 @@ class Adapter {
         targetDiv.classList.add("active");
     }
 
-    returnHome(){
+    returnHome = () => {
         const homeDiv = document.querySelector("div.default");
         homeDiv.classList.add("active");
         window.location.hash = "#home";
     }
 
+    collectTags(hashtags) {
+        let tagCollection = []
+    
+        Array.from(hashtags).forEach(tag => {
+            if (tag.value) { tagCollection.push({"tag_name": tag.value}) }
+        })
+    
+        return tagCollection
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
-    
-        for (fieldset of this.formFieldsets) {
+
+        Array.from(this.formFieldsets).forEach(fieldset => {
             let textarea = fieldset.getElementsByTagName("textarea")[0];
             let hashtags = fieldset.getElementsByClassName("new-hashtag");
-            let hashtags_attributes = collectTags(hashtags);
+            let hashtags_attributes = this.collectTags(hashtags);
     
-            let newPost = {
+            let newPostData = {
                 content: textarea.value,
                 category_id: fieldset.dataset.categoryId,
                 hashtags_attributes
-            };
+            }
     
-        fetch("http://localhost:3000/posts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(newPost)
-        })
+            fetch("http://localhost:3000/posts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(newPostData)
+            })
             .then(res => res.json())
             .then(dataObj => {
 
@@ -163,19 +168,17 @@ class Adapter {
                         this.postsHashtags.push(newTag)
                     }
                 })
-    
-                dataObj["data"].forEach(postObj => {
-                    let newPost = new Post(postObj)
-                    this.allPosts.push(newPost)
-                })
-            });
-    
-        }
+                
+                let newPost = new Post(dataObj["data"])
+                this.allPosts.push(newPost)
 
-        this.addPostsToDOM(this.allPosts)
-        this.removeActiveClass();
-        this.newForm.reset();
-        this.returnHome();
+                this.addPostsToDOM(this.allPosts)
+            })
+        })
+
+        this.removeActiveClass()
+        this.newForm.reset()
+        this.returnHome()
     }
 }
 
