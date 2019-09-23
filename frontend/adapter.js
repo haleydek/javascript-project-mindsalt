@@ -179,7 +179,7 @@ class Adapter {
                 })
             })
 
-            this.removeActiveClass()
+            this.hideContent()
             this.newForm.reset()
             this.returnHome()
         } else {
