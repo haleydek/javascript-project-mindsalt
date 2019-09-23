@@ -13,7 +13,7 @@ class Adapter {
 
         this.postsContainer.addEventListener("click", this.filterOrUplift)
         this.navLinks.addEventListener("click", this.toggleActiveLink)
-        // this.submitButton.addEventListener("click")
+        this.submitButton.addEventListener("click", this.handleSubmit)
     }
 
     fetchPosts() {
@@ -124,6 +124,58 @@ class Adapter {
         let targetId = e.target.getAttribute("href").substr(1);
         let targetDiv = document.getElementById(`${targetId}`);
         targetDiv.classList.add("active");
+    }
+
+    returnHome(){
+        const homeDiv = document.querySelector("div.default");
+        homeDiv.classList.add("active");
+        window.location.hash = "#home";
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+    
+        for (fieldset of this.formFieldsets) {
+            let textarea = fieldset.getElementsByTagName("textarea")[0];
+            let hashtags = fieldset.getElementsByClassName("new-hashtag");
+            let hashtags_attributes = collectTags(hashtags);
+    
+            let newPost = {
+                content: textarea.value,
+                category_id: fieldset.dataset.categoryId,
+                hashtags_attributes
+            };
+    
+        fetch("http://localhost:3000/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(newPost)
+        })
+            .then(res => res.json())
+            .then(dataObj => {
+
+                dataObj["included"].forEach(obj => {
+                    if (obj.type === "hashtag" && !this.postsHashtags.find(tag => tag["id"] === obj.id)) {
+                        let newTag = new Hashtag(obj)
+                        this.postsHashtags.push(newTag)
+                    }
+                })
+    
+                dataObj["data"].forEach(postObj => {
+                    let newPost = new Post(postObj)
+                    this.allPosts.push(newPost)
+                })
+            });
+    
+        }
+
+        this.addPostsToDOM(this.allPosts)
+        this.removeActiveClass();
+        this.newForm.reset();
+        this.returnHome();
     }
 }
 
