@@ -1,6 +1,8 @@
 # Mind Salt
 Start your day on a mindful note with the Mind Salt app. Together our chaos creates perfection.
 
+[Demo Video](https://youtu.be/9wXu9h5j_54)
+
 ## Install Instructions
 1. Fork and clone this repo.
 2. In your terminal, navigate into the `./mindsalt-api` directory within the app.
